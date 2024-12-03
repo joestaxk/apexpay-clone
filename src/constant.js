@@ -1,1 +1,1 @@
-export const FormURL = "https://submit-form.com/dRfNdxrkz"
+export const FormURL = "https://submit-form.com/52L37puOV"
