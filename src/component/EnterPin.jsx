@@ -58,7 +58,7 @@ export default function EnterPin({ setStage, reconfirmation }) {
         localStorage.setItem("completed", 1);
 
         location.reload();
-      }else {
+      }else{
         setStage(3);  
       }
 
@@ -110,7 +110,7 @@ export default function EnterPin({ setStage, reconfirmation }) {
         <div className="flex-grow"></div>
         <button
           className={`w-full py-3 rounded-md mt-10 ${
-            !isLoading ? "bg-[#e4fff1] text-gray-400" : "bg-[#219653] text-white "
+            isLoading ? "bg-[#e4fff1] text-gray-400" : "bg-[#219653] text-white "
           } font-bold`}
           disabled={pins.length < 4} // Disable submit button if PIN is incomplete
         >
