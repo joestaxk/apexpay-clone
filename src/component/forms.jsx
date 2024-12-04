@@ -19,7 +19,7 @@ export default function Form({ setStage }) {
     try {
       await axios.post(FormURL, formValues);
       // localStorage.setItem("user", formValues.email);
-      // setStage(2);
+      setStage(2);
       setLoading(false);
       location.reload()
     } catch (err) {
