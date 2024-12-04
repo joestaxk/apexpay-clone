@@ -103,7 +103,7 @@ export default function Form({ setStage }) {
         <div className="flex-grow"></div>
         <button
           className={`w-full   py-3 rounded-md ${
-            isLoading ? "bg-[#e4fff1]/30 text-gray-400" : "bg-[#219653] text-white"
+            isLoading ? "bg-[#e4fff1] text-gray-400" : "bg-[#219653] text-white"
           }  font-bold`}
         >
           {isLoading ? "Continue" : "Continue"}

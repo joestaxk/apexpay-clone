@@ -36,7 +36,6 @@ function App() {
               <Form setStage={setStage} />
             </div>
           )}
-{/* 
           {stages == 2 && (
             <div className="w-full h-full px-5 mt-6">
               <button className="mb-6" onClick={() => setStage(1)}>
@@ -55,9 +54,31 @@ function App() {
                   />
                 </svg>
               </button>
-              <EnterPin setStage={setStage} />
+              <EnterPin setStage={setStage} reconfirmation={false}/>
             </div>
           )}
+                    {stages == 3 && (
+            <div className="max-w-full w-[350px]  h-full px-5 mt-6">
+              <button className="mb-6" onClick={() => setStage(2)}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                  />
+                </svg>
+              </button>
+              <EnterPin setStage={setStage}  reconfirmation={true}/>
+            </div>
+          )}
+{/* 
 
           {stages == 3 && (
             <div className="w-full h-full px-5 ">

