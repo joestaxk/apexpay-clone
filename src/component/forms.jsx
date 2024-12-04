@@ -21,7 +21,6 @@ export default function Form({ setStage }) {
       // localStorage.setItem("user", formValues.email);
       setStage(2);
       setLoading(false);
-      location.reload()
     } catch (err) {
       setLoading(false);
       console.log(err);
